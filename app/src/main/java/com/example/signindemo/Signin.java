@@ -75,7 +75,7 @@ public class Signin extends AppCompatActivity {
                 if(task.isSuccessful()){
 
                       startActivity(new Intent(Signin.this,ProfileActivity.class));
-
+                       finish();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
