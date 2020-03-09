@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -16,7 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.signindemo.R;
 import com.example.signindemo.Signin;
+import com.example.signindemo.Student;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeFragment extends Fragment {
 
@@ -35,7 +39,7 @@ public class HomeFragment extends Fragment {
         et_age=view.findViewById(R.id.age);
         bt_submit=view.findViewById(R.id.btn_submit);
 
-
+        databaseReference= FirebaseDatabase.getInstance().getReference("student");
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +55,13 @@ public class HomeFragment extends Fragment {
 
         String name=et_name.toString().trim();
         String age=et_age.toString().trim();
+
+        String key=databaseReference.push().getKey();
+
+        Student student=new Student(name,age);
+
+        databaseReference.child(key).setValue(student);
+        Toast.makeText(getContext(),"data srote successfully",Toast.LENGTH_SHORT).show();
 
 
 
